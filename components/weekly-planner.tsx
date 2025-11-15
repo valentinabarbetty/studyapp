@@ -20,17 +20,44 @@ export function WeeklyPlanner() {
     { day: 'MIE', time: '16:00', subject: 'Historia' },
   ])
   const [isOpen, setIsOpen] = useState(false)
-  const [newSession, setNewSession] = useState({ day: 'LUN', time: '', subject: '' })
+  const [newSession, setNewSession] = useState<Session>({ day: 'LUN', time: '', subject: '' })
+  const [editingIndex, setEditingIndex] = useState<number | null>(null)
 
   const days = ['LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB', 'DOM']
   const weeklyStreak = [true, true, true, false, false, false, false]
 
   const handleAddSession = () => {
-    if (newSession.time && newSession.subject) {
+    // kept for backwards-compatibility but prefer handleSave
+    handleSave()
+  }
+
+  const handleSave = () => {
+    if (!newSession.time || !newSession.subject) return
+
+    if (editingIndex === null) {
       setSessions([...sessions, newSession])
-      setNewSession({ day: 'LUN', time: '', subject: '' })
-      setIsOpen(false)
+    } else {
+      setSessions(sessions.map((s, i) => (i === editingIndex ? newSession : s)))
     }
+
+    setNewSession({ day: 'LUN', time: '', subject: '' })
+    setEditingIndex(null)
+    setIsOpen(false)
+  }
+
+  const handleEditSession = (index: number) => {
+    const session = sessions[index]
+    setNewSession(session)
+    setEditingIndex(index)
+    setIsOpen(true)
+  }
+
+  const handleDelete = () => {
+    if (editingIndex === null) return
+    setSessions(sessions.filter((_, i) => i !== editingIndex))
+    setEditingIndex(null)
+    setNewSession({ day: 'LUN', time: '', subject: '' })
+    setIsOpen(false)
   }
 
   return (
@@ -70,7 +97,7 @@ export function WeeklyPlanner() {
                 <p className="font-semibold text-foreground">{session.subject}</p>
                 <p className="text-sm text-muted-foreground">{session.day} - {session.time}</p>
               </div>
-              <Button variant="outline" size="sm" className="rounded-lg">
+              <Button variant="outline" size="sm" className="rounded-lg" onClick={() => handleEditSession(index)}>
                 Editar
               </Button>
             </div>
@@ -86,7 +113,7 @@ export function WeeklyPlanner() {
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle>Nueva Sesión de Estudio</DialogTitle>
+              <DialogTitle>{editingIndex === null ? 'Nueva Sesión de Estudio' : 'Editar Sesión de Estudio'}</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div>
@@ -123,8 +150,13 @@ export function WeeklyPlanner() {
                 />
               </div>
               <Button onClick={handleAddSession} className="w-full rounded-xl bg-primary hover:bg-primary/90">
-                Guardar Sesión
+                {editingIndex === null ? 'Guardar Sesión' : 'Guardar cambios'}
               </Button>
+              {editingIndex !== null && (
+                <Button onClick={handleDelete} variant="outline" className="w-full mt-2 rounded-xl border-red-400 text-red-600">
+                  Eliminar Sesión
+                </Button>
+              )}
             </div>
           </DialogContent>
         </Dialog>
