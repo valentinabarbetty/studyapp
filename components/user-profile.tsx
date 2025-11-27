@@ -8,6 +8,15 @@ import { Progress } from "@/components/ui/progress"
 import Link from "next/link"
 
 export function UserProfile() {
+  const avatarOptions = [
+    { id: "female-light", src: "/avatars/female-light.svg", label: "Mujer piel clara" },
+    { id: "female-medium", src: "/avatars/female-medium.svg", label: "Mujer piel media" },
+    { id: "female-dark", src: "/avatars/female-dark.svg", label: "Mujer piel oscura" },
+    { id: "male-light", src: "/avatars/male-light.svg", label: "Hombre piel clara" },
+    { id: "male-medium", src: "/avatars/male-medium.svg", label: "Hombre piel media" },
+    { id: "male-dark", src: "/avatars/male-dark.svg", label: "Hombre piel oscura" },
+  ]
+
   const weeklyData = [
     { day: "LUN", percentage: 80, completed: true },
     { day: "MAR", percentage: 20, completed: false },
@@ -22,6 +31,7 @@ export function UserProfile() {
   const nextLevelXP = 1500
   const progressPercentage = (currentXP / nextLevelXP) * 100
   const [coins, setCoins] = useState(450)
+  const [selectedAvatar, setSelectedAvatar] = useState(avatarOptions[0])
 
   return (
     <div className="p-6 animate-fade-in">
@@ -36,7 +46,7 @@ export function UserProfile() {
       <Card className="p-6 mb-6 bg-gradient-to-br from-primary/10 to-accent/10 border-2 border-primary/20">
         <div className="flex items-start gap-4 mb-4">
           <Avatar className="w-16 h-16 border-2 border-primary">
-            <AvatarImage src="/placeholder.svg?height=64&width=64" />
+            <AvatarImage src={selectedAvatar.src} alt={selectedAvatar.label} />
             <AvatarFallback className="bg-primary text-primary-foreground text-xl font-bold">L</AvatarFallback>
           </Avatar>
           <div className="flex-1">
@@ -60,6 +70,38 @@ export function UserProfile() {
             <span className="font-semibold text-primary">{currentXP} XP</span>
             <span className="text-muted-foreground">{nextLevelXP} XP</span>
           </div>
+        </div>
+      </Card>
+
+      <Card className="p-6 mb-6 bg-card border-border">
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <h3 className="font-semibold text-foreground">Imagen de perfil</h3>
+            <p className="text-sm text-muted-foreground">Elige entre 6 avatares precargados.</p>
+          </div>
+          <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">3 hombres · 3 mujeres</span>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          {avatarOptions.map((option) => {
+            const isSelected = selectedAvatar.id === option.id
+
+            return (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => setSelectedAvatar(option)}
+                className={`flex flex-col items-center gap-2 rounded-xl border-2 p-3 transition hover:scale-[1.02] ${
+                  isSelected ? "border-primary ring-2 ring-primary/30 bg-primary/5" : "border-muted bg-muted/20"
+                }`}
+              >
+                <Avatar className="w-16 h-16 border border-border bg-background">
+                  <AvatarImage src={option.src} alt={option.label} />
+                  <AvatarFallback className="bg-muted text-foreground">{option.label.slice(0, 1)}</AvatarFallback>
+                </Avatar>
+                <span className="text-xs font-semibold text-foreground text-center leading-tight">{option.label}</span>
+              </button>
+            )
+          })}
         </div>
       </Card>
 

@@ -1,0 +1,9 @@
+<svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title>Avatar femenino piel media</title>
+  <desc>Ilustración minimalista de una mujer con tono de piel medio.</desc>
+  <rect width="160" height="160" rx="24" fill="#FFF5E9"/>
+  <circle cx="80" cy="70" r="34" fill="#C98D66"/>
+  <rect x="44" y="98" width="72" height="40" rx="20" fill="#F09D3C"/>
+  <rect x="38" y="44" width="84" height="30" rx="14" fill="#B5521C"/>
+  <rect x="52" y="48" width="56" height="22" rx="11" fill="#6F2D0A"/>
+</svg>
