@@ -67,10 +67,10 @@ export function UserProfile() {
         <h3 className="font-semibold text-foreground mb-4">Tu avance semanal</h3>
         <div className="flex items-end justify-between gap-2 h-40 mb-3">
           {weeklyData.map((data, index) => (
-            <div key={data.day} className="flex-1 flex flex-col items-center gap-2">
-              <div className="w-full bg-muted rounded-t-lg relative overflow-hidden" style={{ height: "100%" }}>
+            <div key={data.day} className="flex-1 flex flex-col items-center gap-2 h-full">
+              <div className="w-full h-32 bg-muted/30 rounded-lg relative flex items-end">
                 <div
-                  className="absolute bottom-0 w-full bg-primary rounded-t-lg transition-all duration-500 animate-progress-fill"
+                  className="w-full bg-primary rounded-lg transition-all duration-500"
                   style={{ height: `${data.percentage}%` }}
                 />
               </div>
