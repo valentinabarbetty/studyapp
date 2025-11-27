@@ -21,24 +21,7 @@ export function HealthRecommendations() {
         <p className="text-muted-foreground">Recomendaciones para mejorar tu rendimiento</p>
       </div>
 
-      <Link href="/missions/daily-challenge">
-        <Card className="p-6 mb-4 bg-gradient-to-br from-accent/20 to-accent/10 border-2 border-accent/30 hover:scale-105 transition-transform cursor-pointer">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
-              <Target className="w-6 h-6 text-accent-foreground" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-bold text-foreground mb-2">Próxima Misión - Reto Diario</h3>
-              <p className="text-sm text-muted-foreground mb-1">Completa 3 sesiones de estudio hoy</p>
-              <div className="flex items-center gap-2 mt-2">
-                <div className="px-3 py-1 bg-accent/40 rounded-lg text-xs font-semibold text-accent-foreground">
-                  3 Sesiones Pendientes
-                </div>
-              </div>
-            </div>
-          </div>
-        </Card>
-      </Link>
+      
 
       <Card className="p-6 mb-4 bg-gradient-to-br from-accent/20 to-accent/10 border-2 border-accent/30">
         <div className="flex items-start gap-4">
