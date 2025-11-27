@@ -73,9 +73,11 @@ export default function DailyChallengeSessionsPage() {
                         </span>
                       </div>
                     </div>
-                    <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl">
-                      Comenzar Sesión
-                    </Button>
+                    <Link href={`/missions/daily-challenge/session/${session.id}`}>
+                      <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl">
+                        Comenzar Sesión
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </Card>
