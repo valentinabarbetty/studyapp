@@ -1,5 +1,5 @@
-import { HealthRecommendations } from '@/components/health-recommendations'
-import { BottomNav } from '@/components/bottom-nav'
+import { HealthRecommendations } from "@/components/health-recommendations"
+import { BottomNav } from "@/components/bottom-nav"
 
 export default function MissionsPage() {
   return (

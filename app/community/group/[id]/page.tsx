@@ -71,7 +71,7 @@ export default function GroupDetailPage() {
               {group.members.map((member, index) => (
                 <Card
                   key={member.id}
-                  className="p-4 bg-card border-border"
+                  className="p-4 bg-card border-border mb-5 last:mb-0"
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <div className="relative">

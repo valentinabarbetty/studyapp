@@ -1,15 +1,15 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { ArrowLeft, Trophy, Users, Target, Calendar, Plus, Check } from 'lucide-react'
-import Link from 'next/link'
-import { BottomNav } from '@/components/bottom-nav'
-import { Progress } from '@/components/ui/progress'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { useState } from "react"
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { ArrowLeft, Trophy, Users, Target, Calendar, Plus, Check } from "lucide-react"
+import Link from "next/link"
+import { BottomNav } from "@/components/bottom-nav"
+import { Progress } from "@/components/ui/progress"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 type Challenge = {
   id: number
@@ -20,34 +20,39 @@ type Challenge = {
   participants: number
   endDate: string
   active: boolean
+  participantsList: string[]
 }
 
 export default function ChallengesPage() {
   const [challenges, setChallenges] = useState<Challenge[]>([
     {
       id: 1,
-      title: '100 Horas en Septiembre',
-      description: 'Completar 100 horas de estudio en equipo',
+      title: "100 Horas en Septiembre",
+      description: "Completar 100 horas de estudio en equipo",
       goal: 100,
       current: 67,
       participants: 5,
-      endDate: '30 Sep',
+      endDate: "30 Sep",
       active: true,
+      participantsList: ["Leidy", "Carlos", "María", "Juan", "Ana"],
     },
     {
       id: 2,
-      title: 'Racha Perfecta',
-      description: 'Mantener 30 días consecutivos estudiando',
+      title: "Racha Perfecta",
+      description: "Mantener 30 días consecutivos estudiando",
       goal: 30,
       current: 18,
       participants: 8,
-      endDate: '15 Oct',
+      endDate: "15 Oct",
       active: true,
+      participantsList: ["Leidy", "Pedro", "Laura", "Diego", "Sofia", "Miguel", "Elena", "Luis"],
     },
   ])
   const [isOpen, setIsOpen] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
-  const [newChallenge, setNewChallenge] = useState({ title: '', goal: '' })
+  const [showDetailModal, setShowDetailModal] = useState(false)
+  const [selectedChallenge, setSelectedChallenge] = useState<Challenge | null>(null)
+  const [newChallenge, setNewChallenge] = useState({ title: "", goal: "" })
 
   const handleCreateChallenge = () => {
     if (newChallenge.title && newChallenge.goal) {
@@ -55,9 +60,14 @@ export default function ChallengesPage() {
       setTimeout(() => {
         setShowSuccess(false)
         setIsOpen(false)
-        setNewChallenge({ title: '', goal: '' })
+        setNewChallenge({ title: "", goal: "" })
       }, 2000)
     }
+  }
+
+  const handleViewDetails = (challenge: Challenge) => {
+    setSelectedChallenge(challenge)
+    setShowDetailModal(true)
   }
 
   return (
@@ -68,12 +78,85 @@ export default function ChallengesPage() {
             <div className="w-20 h-20 bg-success rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-success">
               <Check className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">
-              Reto Creado con Éxito
-            </h2>
-            <p className="text-muted-foreground">
-              Tu reto cooperativo ha sido creado
-            </p>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Reto Creado con Éxito</h2>
+            <p className="text-muted-foreground">Tu reto cooperativo ha sido creado</p>
+          </Card>
+        </div>
+      )}
+
+      {showDetailModal && selectedChallenge && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center animate-fade-in p-4">
+          <Card className="max-w-md w-full bg-card animate-slide-up max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <Trophy className="w-8 h-8 text-accent-foreground" />
+                  <h2 className="text-xl font-bold text-foreground">Detalles del Reto</h2>
+                </div>
+                <Button variant="ghost" size="icon" onClick={() => setShowDetailModal(false)} className="rounded-full">
+                  ✕
+                </Button>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-bold text-lg text-foreground mb-1">{selectedChallenge.title}</h3>
+                  <p className="text-sm text-muted-foreground">{selectedChallenge.description}</p>
+                </div>
+
+                <div className="p-4 bg-muted/50 rounded-xl">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm text-muted-foreground">Progreso</span>
+                    <span className="font-bold text-foreground">
+                      {selectedChallenge.current}/{selectedChallenge.goal} hrs
+                    </span>
+                  </div>
+                  <Progress value={(selectedChallenge.current / selectedChallenge.goal) * 100} className="h-3" />
+                </div>
+
+                <div className="p-4 bg-muted/50 rounded-xl">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Users className="w-5 h-5 text-primary" />
+                    <h4 className="font-semibold text-foreground">Participantes ({selectedChallenge.participants})</h4>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedChallenge.participantsList.map((participant, index) => (
+                      <div
+                        key={index}
+                        className="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium"
+                      >
+                        {participant}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-4 bg-muted/50 rounded-xl">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Target className="w-5 h-5 text-accent" />
+                    <h4 className="font-semibold text-foreground">Meta</h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Completar {selectedChallenge.goal} horas de estudio en equipo antes del {selectedChallenge.endDate}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between p-4 bg-accent/20 rounded-xl">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-5 h-5 text-accent-foreground" />
+                    <span className="font-semibold text-accent-foreground">Termina:</span>
+                  </div>
+                  <span className="font-bold text-accent-foreground">{selectedChallenge.endDate}</span>
+                </div>
+              </div>
+
+              <Button
+                onClick={() => setShowDetailModal(false)}
+                className="w-full mt-6 rounded-xl bg-primary hover:bg-primary/90"
+              >
+                Cerrar
+              </Button>
+            </div>
           </Card>
         </div>
       )}
@@ -133,7 +216,10 @@ export default function ChallengesPage() {
                         className="rounded-xl"
                       />
                     </div>
-                    <Button onClick={handleCreateChallenge} className="w-full rounded-xl bg-primary hover:bg-primary/90">
+                    <Button
+                      onClick={handleCreateChallenge}
+                      className="w-full rounded-xl bg-primary hover:bg-primary/90"
+                    >
                       Crear Reto
                     </Button>
                   </div>
@@ -144,10 +230,7 @@ export default function ChallengesPage() {
 
           <div className="space-y-4">
             {challenges.map((challenge) => (
-              <Card
-                key={challenge.id}
-                className="p-5 bg-card border-border hover:border-primary transition-colors"
-              >
+              <Card key={challenge.id} className="p-5 bg-card border-border hover:border-primary transition-colors">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
                     <h3 className="font-bold text-foreground mb-1">{challenge.title}</h3>
@@ -177,11 +260,14 @@ export default function ChallengesPage() {
                       <span>Termina: {challenge.endDate}</span>
                     </div>
                     {(challenge.current / challenge.goal) * 100 >= 100 ? (
-                      <div className="px-3 py-1 bg-success text-white rounded-lg text-sm font-semibold">
-                        Completado
-                      </div>
+                      <div className="px-3 py-1 bg-success text-white rounded-lg text-sm font-semibold">Completado</div>
                     ) : (
-                      <Button size="sm" variant="outline" className="rounded-lg">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="rounded-lg bg-transparent"
+                        onClick={() => handleViewDetails(challenge)}
+                      >
                         Ver detalles
                       </Button>
                     )}

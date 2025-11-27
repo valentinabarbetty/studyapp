@@ -1,0 +1,9 @@
+<svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title>Avatar masculino piel media</title>
+  <desc>Ilustración minimalista de un hombre con tono de piel medio.</desc>
+  <rect width="160" height="160" rx="24" fill="#F1F3FF"/>
+  <circle cx="80" cy="70" r="34" fill="#C88F6B"/>
+  <rect x="44" y="98" width="72" height="40" rx="20" fill="#5566D6"/>
+  <rect x="42" y="44" width="76" height="26" rx="12" fill="#2B368F"/>
+  <rect x="56" y="46" width="48" height="18" rx="9" fill="#1C2459"/>
+</svg>

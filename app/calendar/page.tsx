@@ -1,5 +1,5 @@
-import { WeeklyPlanner } from '@/components/weekly-planner'
-import { BottomNav } from '@/components/bottom-nav'
+import { WeeklyPlanner } from "@/components/weekly-planner"
+import { BottomNav } from "@/components/bottom-nav"
 
 export default function CalendarPage() {
   return (
