@@ -1,5 +1,5 @@
-import { UserProfile } from '@/components/user-profile'
-import { BottomNav } from '@/components/bottom-nav'
+import { UserProfile } from "@/components/user-profile"
+import { BottomNav } from "@/components/bottom-nav"
 
 export default function ProfilePage() {
   return (

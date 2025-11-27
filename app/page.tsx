@@ -1,10 +1,7 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Calendar, Target, Users, User } from 'lucide-react'
-import Link from 'next/link'
-import { SessionStart } from '@/components/session-start'
-import { BottomNav } from '@/components/bottom-nav'
+import { SessionStart } from "@/components/session-start"
+import { BottomNav } from "@/components/bottom-nav"
 
 export default function HomePage() {
   return (

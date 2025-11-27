@@ -1,5 +1,5 @@
-import { CommunityHub } from '@/components/community-hub'
-import { BottomNav } from '@/components/bottom-nav'
+import { CommunityHub } from "@/components/community-hub"
+import { BottomNav } from "@/components/bottom-nav"
 
 export default function CommunityPage() {
   return (

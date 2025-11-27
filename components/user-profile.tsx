@@ -1,44 +1,43 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Flame, Award, Settings } from 'lucide-react'
-import { Progress } from '@/components/ui/progress'
-import Link from 'next/link'
+import { useState } from "react"
+import { Card } from "@/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Flame, Award, Coins } from "lucide-react"
+import { Progress } from "@/components/ui/progress"
+import Link from "next/link"
 
 export function UserProfile() {
   const weeklyData = [
-    { day: 'LUN', percentage: 100, completed: true },
-    { day: 'MAR', percentage: 80, completed: true },
-    { day: 'MIE', percentage: 100, completed: true },
-    { day: 'JUE', percentage: 50, completed: false },
-    { day: 'VIE', percentage: 60, completed: false },
-    { day: 'SAB', percentage: 100, completed: true },
-    { day: 'DOM', percentage: 0, completed: false },
+    { day: "LUN", percentage: 80, completed: true },
+    { day: "MAR", percentage: 20, completed: false },
+    { day: "MIE", percentage: 60, completed: false },
+    { day: "JUE", percentage: 40, completed: false },
+    { day: "VIE", percentage: 70, completed: false },
+    { day: "SAB", percentage: 10, completed: false },
+    { day: "DOM", percentage: 50, completed: false },
   ]
 
   const currentXP = 1200
   const nextLevelXP = 1500
   const progressPercentage = (currentXP / nextLevelXP) * 100
+  const [coins, setCoins] = useState(450)
 
   return (
     <div className="p-6 animate-fade-in">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-foreground">Mi Perfil</h1>
-        <Button variant="ghost" size="icon" className="rounded-full">
-          <Settings className="w-5 h-5" />
-        </Button>
+        <div className="flex items-center gap-2 bg-accent/20 px-4 py-2 rounded-full">
+          <Coins className="w-5 h-5 text-accent-foreground" />
+          <span className="font-bold text-accent-foreground">{coins}</span>
+        </div>
       </div>
 
       <Card className="p-6 mb-6 bg-gradient-to-br from-primary/10 to-accent/10 border-2 border-primary/20">
         <div className="flex items-start gap-4 mb-4">
           <Avatar className="w-16 h-16 border-2 border-primary">
             <AvatarImage src="/placeholder.svg?height=64&width=64" />
-            <AvatarFallback className="bg-primary text-primary-foreground text-xl font-bold">
-              L
-            </AvatarFallback>
+            <AvatarFallback className="bg-primary text-primary-foreground text-xl font-bold">L</AvatarFallback>
           </Avatar>
           <div className="flex-1">
             <h2 className="text-xl font-bold text-foreground mb-1">Leidy</h2>
@@ -66,26 +65,19 @@ export function UserProfile() {
 
       <Card className="p-6 mb-6 bg-card border-border">
         <h3 className="font-semibold text-foreground mb-4">Tu avance semanal</h3>
-        <div className="flex items-end justify-between gap-2 h-40 mb-4">
+        <div className="flex items-end justify-between gap-2 h-40 mb-3">
           {weeklyData.map((data, index) => (
-            <div key={data.day} className="flex-1 flex flex-col items-center gap-2">
-              <div className="w-full bg-muted rounded-t-lg relative overflow-hidden" style={{ height: '100%' }}>
+            <div key={data.day} className="flex-1 flex flex-col items-center gap-2 h-full">
+              <div className="w-full h-32 bg-muted/30 rounded-lg relative flex items-end">
                 <div
-                  className="absolute bottom-0 w-full bg-primary rounded-t-lg transition-all duration-500 animate-progress-fill"
+                  className="w-full bg-primary rounded-lg transition-all duration-500"
                   style={{ height: `${data.percentage}%` }}
                 />
               </div>
+              <span className="text-xs font-bold text-primary">{data.percentage}%</span>
               <span className="text-xs font-medium text-muted-foreground">{data.day}</span>
             </div>
           ))}
-        </div>
-
-        <div className="flex items-center justify-between p-4 bg-muted/50 rounded-xl">
-          <span className="text-sm text-muted-foreground">0%</span>
-          <span className="text-sm font-semibold text-foreground">20%</span>
-          <span className="text-sm font-semibold text-foreground">50%</span>
-          <span className="text-sm font-semibold text-foreground">80%</span>
-          <span className="text-sm font-semibold text-primary">100%</span>
         </div>
       </Card>
 
@@ -115,7 +107,7 @@ export function UserProfile() {
         </Link>
         <Link href="/coins">
           <Card className="p-6 bg-gradient-to-br from-primary/20 to-primary/10 border-primary/30 hover:scale-105 transition-transform cursor-pointer">
-            <div className="w-8 h-8 mb-2 text-2xl">🪙</div>
+            <Coins className="w-8 h-8 text-primary mb-2" />
             <p className="font-semibold text-foreground">Monedas</p>
             <p className="text-sm text-muted-foreground">Ver inventario</p>
           </Card>
