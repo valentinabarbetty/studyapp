@@ -1,0 +1,9 @@
+<svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title>Avatar masculino piel clara</title>
+  <desc>Ilustración minimalista de un hombre con tono de piel claro.</desc>
+  <rect width="160" height="160" rx="24" fill="#E8F5FF"/>
+  <circle cx="80" cy="70" r="34" fill="#F3D4B5"/>
+  <rect x="44" y="98" width="72" height="40" rx="20" fill="#3B7DD8"/>
+  <rect x="42" y="44" width="76" height="26" rx="12" fill="#1E4B8F"/>
+  <rect x="56" y="46" width="48" height="18" rx="9" fill="#102B55"/>
+</svg>
