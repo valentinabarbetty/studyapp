@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, use } from "react"
+import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Pause, Play } from "lucide-react"
@@ -28,10 +28,9 @@ const sessions = [
   },
 ]
 
-export default function SessionTimerPage({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params)
+export default function SessionTimerPage({ params }: { params: { id: string } }) {
   const router = useRouter()
-  const sessionId = Number.parseInt(resolvedParams.id)
+  const sessionId = Number.parseInt(params.id)
   const session = sessions.find((s) => s.id === sessionId)
 
   const [timeLeft, setTimeLeft] = useState((session?.duration || 45) * 60)
