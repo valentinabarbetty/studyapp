@@ -11,11 +11,11 @@ export function UserProfile() {
   const weeklyData = [
     { day: "LUN", percentage: 80, completed: true },
     { day: "MAR", percentage: 20, completed: false },
-    { day: "MIE", percentage: 100, completed: true },
-    { day: "JUE", percentage: 50, completed: false },
-    { day: "VIE", percentage: 60, completed: false },
-    { day: "SAB", percentage: 100, completed: true },
-    { day: "DOM", percentage: 30, completed: false },
+    { day: "MIE", percentage: 60, completed: false },
+    { day: "JUE", percentage: 40, completed: false },
+    { day: "VIE", percentage: 70, completed: false },
+    { day: "SAB", percentage: 10, completed: false },
+    { day: "DOM", percentage: 50, completed: false },
   ]
 
   const currentXP = 1200
@@ -65,7 +65,7 @@ export function UserProfile() {
 
       <Card className="p-6 mb-6 bg-card border-border">
         <h3 className="font-semibold text-foreground mb-4">Tu avance semanal</h3>
-        <div className="flex items-end justify-between gap-2 h-40 mb-4">
+        <div className="flex items-end justify-between gap-2 h-40 mb-3">
           {weeklyData.map((data, index) => (
             <div key={data.day} className="flex-1 flex flex-col items-center gap-2">
               <div className="w-full bg-muted rounded-t-lg relative overflow-hidden" style={{ height: "100%" }}>
@@ -74,17 +74,10 @@ export function UserProfile() {
                   style={{ height: `${data.percentage}%` }}
                 />
               </div>
+              <span className="text-xs font-bold text-primary">{data.percentage}%</span>
               <span className="text-xs font-medium text-muted-foreground">{data.day}</span>
             </div>
           ))}
-        </div>
-
-        <div className="flex items-center justify-between p-4 bg-muted/50 rounded-xl">
-          <span className="text-sm text-muted-foreground">0%</span>
-          <span className="text-sm font-semibold text-foreground">20%</span>
-          <span className="text-sm font-semibold text-foreground">50%</span>
-          <span className="text-sm font-semibold text-foreground">80%</span>
-          <span className="text-sm font-semibold text-primary">100%</span>
         </div>
       </Card>
 

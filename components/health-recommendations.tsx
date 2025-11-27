@@ -1,11 +1,11 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Sun, Moon, Bell, Clock, Brain, Heart, Coffee } from 'lucide-react'
-import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
+import { useState } from "react"
+import { Card } from "@/components/ui/card"
+import { Sun, Moon, Bell, Clock, Coffee, Target } from "lucide-react"
+import { Switch } from "@/components/ui/switch"
+import { Label } from "@/components/ui/label"
+import Link from "next/link"
 
 export function HealthRecommendations() {
   const [notifications, setNotifications] = useState({
@@ -17,13 +17,28 @@ export function HealthRecommendations() {
   return (
     <div className="p-6 animate-fade-in">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-foreground mb-2">
-          Salud y Bienestar
-        </h1>
-        <p className="text-muted-foreground">
-          Recomendaciones para mejorar tu rendimiento
-        </p>
+        <h1 className="text-3xl font-bold text-foreground mb-2">Salud y Bienestar</h1>
+        <p className="text-muted-foreground">Recomendaciones para mejorar tu rendimiento</p>
       </div>
+
+      <Link href="/missions/daily-challenge">
+        <Card className="p-6 mb-4 bg-gradient-to-br from-accent/20 to-accent/10 border-2 border-accent/30 hover:scale-105 transition-transform cursor-pointer">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+              <Target className="w-6 h-6 text-accent-foreground" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-foreground mb-2">Próxima Misión - Reto Diario</h3>
+              <p className="text-sm text-muted-foreground mb-1">Completa 3 sesiones de estudio hoy</p>
+              <div className="flex items-center gap-2 mt-2">
+                <div className="px-3 py-1 bg-accent/40 rounded-lg text-xs font-semibold text-accent-foreground">
+                  3 Sesiones Pendientes
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </Link>
 
       <Card className="p-6 mb-4 bg-gradient-to-br from-accent/20 to-accent/10 border-2 border-accent/30">
         <div className="flex items-start gap-4">
@@ -33,8 +48,8 @@ export function HealthRecommendations() {
           <div className="flex-1">
             <h3 className="font-bold text-foreground mb-2">Estudia durante el día</h3>
             <p className="text-sm text-muted-foreground mb-3">
-              Los estudios muestran que estudiar entre las 10:00 AM y 6:00 PM mejora la
-              retención de información hasta en un 30%.
+              Los estudios muestran que estudiar entre las 10:00 AM y 6:00 PM mejora la retención de información hasta
+              en un 30%.
             </p>
             <div className="flex gap-2 text-sm font-semibold text-accent-foreground">
               <div className="px-3 py-1 bg-accent/30 rounded-lg">
@@ -54,8 +69,8 @@ export function HealthRecommendations() {
           <div className="flex-1">
             <h3 className="font-bold text-foreground mb-2">Hora ideal para dormir</h3>
             <p className="text-sm text-muted-foreground mb-3">
-              Para un descanso óptimo y mejor consolidación de la memoria, te recomendamos
-              dormir entre 7-9 horas diarias.
+              Para un descanso óptimo y mejor consolidación de la memoria, te recomendamos dormir entre 7-9 horas
+              diarias.
             </p>
             <div className="flex gap-2 text-sm font-semibold text-primary-foreground">
               <div className="px-3 py-1 bg-primary/40 rounded-lg">
@@ -63,24 +78,6 @@ export function HealthRecommendations() {
                 10:00 PM - 6:00 AM
               </div>
             </div>
-          </div>
-        </div>
-      </Card>
-
-      <Card className="p-6 mb-4 bg-gradient-to-br from-success/20 to-success/10 border-2 border-success/30">
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 bg-success rounded-full flex items-center justify-center flex-shrink-0">
-            <Brain className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1">
-            <h3 className="font-bold text-foreground mb-2">Técnica Pomodoro</h3>
-            <p className="text-sm text-muted-foreground mb-3">
-              Alterna 25 minutos de estudio intenso con 5 minutos de descanso. Después de
-              4 sesiones, toma un descanso de 15-30 minutos.
-            </p>
-            <Button className="w-full bg-success hover:bg-success/90 text-white rounded-xl">
-              Activar Pomodoro
-            </Button>
           </div>
         </div>
       </Card>
@@ -93,8 +90,7 @@ export function HealthRecommendations() {
           <div className="flex-1">
             <h3 className="font-bold text-foreground mb-2">Toma descansos</h3>
             <p className="text-sm text-muted-foreground">
-              Los descansos regulares mejoran la concentración y previenen el agotamiento
-              mental.
+              Los descansos regulares mejoran la concentración y previenen el agotamiento mental.
             </p>
           </div>
         </div>
@@ -125,16 +121,12 @@ export function HealthRecommendations() {
               <Label htmlFor="study-reminders" className="text-sm font-medium text-foreground">
                 Recordatorios de estudio
               </Label>
-              <p className="text-xs text-muted-foreground">
-                Recibe alertas para tus sesiones programadas
-              </p>
+              <p className="text-xs text-muted-foreground">Recibe alertas para tus sesiones programadas</p>
             </div>
             <Switch
               id="study-reminders"
               checked={notifications.studyReminders}
-              onCheckedChange={(checked) =>
-                setNotifications({ ...notifications, studyReminders: checked })
-              }
+              onCheckedChange={(checked) => setNotifications({ ...notifications, studyReminders: checked })}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -142,16 +134,12 @@ export function HealthRecommendations() {
               <Label htmlFor="break-reminders" className="text-sm font-medium text-foreground">
                 Recordatorios de descanso
               </Label>
-              <p className="text-xs text-muted-foreground">
-                Te avisamos cuando es hora de tomar un break
-              </p>
+              <p className="text-xs text-muted-foreground">Te avisamos cuando es hora de tomar un break</p>
             </div>
             <Switch
               id="break-reminders"
               checked={notifications.breakReminders}
-              onCheckedChange={(checked) =>
-                setNotifications({ ...notifications, breakReminders: checked })
-              }
+              onCheckedChange={(checked) => setNotifications({ ...notifications, breakReminders: checked })}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -159,16 +147,12 @@ export function HealthRecommendations() {
               <Label htmlFor="sleep-reminders" className="text-sm font-medium text-foreground">
                 Recordatorios de sueño
               </Label>
-              <p className="text-xs text-muted-foreground">
-                Te recordamos cuándo deberías ir a dormir
-              </p>
+              <p className="text-xs text-muted-foreground">Te recordamos cuándo deberías ir a dormir</p>
             </div>
             <Switch
               id="sleep-reminders"
               checked={notifications.sleepReminders}
-              onCheckedChange={(checked) =>
-                setNotifications({ ...notifications, sleepReminders: checked })
-              }
+              onCheckedChange={(checked) => setNotifications({ ...notifications, sleepReminders: checked })}
             />
           </div>
         </div>

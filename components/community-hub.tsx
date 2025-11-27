@@ -1,11 +1,9 @@
-'use client'
+"use client"
 
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Users, Plus, Trophy, Target } from 'lucide-react'
-import Link from 'next/link'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Progress } from '@/components/ui/progress'
+import { Card } from "@/components/ui/card"
+import { Users, Plus, Trophy } from "lucide-react"
+import Link from "next/link"
+import { Progress } from "@/components/ui/progress"
 
 type Group = {
   id: number
@@ -17,8 +15,8 @@ type Group = {
 
 export function CommunityHub() {
   const myGroups: Group[] = [
-    { id: 1, name: 'Matemáticas Avanzadas', members: 5, progress: 75, image: '📐' },
-    { id: 2, name: 'Club de Lectura', members: 8, progress: 60, image: '📚' },
+    { id: 1, name: "Matemáticas Avanzadas", members: 5, progress: 75, image: "📐" },
+    { id: 2, name: "Club de Lectura", members: 8, progress: 60, image: "📚" },
   ]
 
   return (
@@ -31,31 +29,29 @@ export function CommunityHub() {
       </div>
 
       <Link href="/community/create">
-        <Card className="p-6 mb-6 bg-gradient-to-br from-primary/20 to-accent/10 border-2 border-primary/30 hover:scale-105 transition-transform cursor-pointer">
+        <Card className="p-6 mb-8 bg-gradient-to-br from-primary/20 to-accent/10 border-2 border-primary/30 hover:scale-105 transition-transform cursor-pointer">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
               <Plus className="w-7 h-7 text-primary-foreground" />
             </div>
             <div className="flex-1">
               <h3 className="font-bold text-foreground mb-1">Crear Nuevo Grupo</h3>
-              <p className="text-sm text-muted-foreground">
-                Invita a tus amigos y estudien juntos
-              </p>
+              <p className="text-sm text-muted-foreground">Invita a tus amigos y estudien juntos</p>
             </div>
           </div>
         </Card>
       </Link>
 
-      <div className="mb-6">
+      <div className="mb-8">
         <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
           <Users className="w-5 h-5 text-primary" />
           Mis Grupos
         </h2>
-        <div className="space-y-3">
+        <div className="space-y-4">
           {myGroups.map((group) => (
             <Link key={group.id} href={`/community/group/${group.id}`}>
-              <Card className="p-5 bg-card border-border hover:border-primary transition-colors cursor-pointer">
-                <div className="flex items-center gap-4 mb-3">
+              <Card className="p-6 bg-card border-border hover:border-primary transition-colors cursor-pointer">
+                <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center text-2xl">
                     {group.image}
                   </div>
@@ -85,9 +81,7 @@ export function CommunityHub() {
             </div>
             <div className="flex-1">
               <h3 className="font-bold text-foreground mb-1">Retos Cooperativos</h3>
-              <p className="text-sm text-muted-foreground">
-                Compite con otros grupos y gana recompensas
-              </p>
+              <p className="text-sm text-muted-foreground">Compite con otros grupos y gana recompensas</p>
             </div>
           </div>
         </Card>
