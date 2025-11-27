@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Clock } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { Sun, Moon, Bell, Clock, Coffee, Target } from "lucide-react"
 
 export function SessionStart() {
   const [selectedTime, setSelectedTime] = useState(25)
