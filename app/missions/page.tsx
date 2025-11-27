@@ -1,10 +1,12 @@
-import { HealthRecommendations } from '@/components/health-recommendations'
-import { BottomNav } from '@/components/bottom-nav'
+import { HealthRecommendations } from "@/components/health-recommendations"
+import { BottomNav } from "@/components/bottom-nav"
+import { CoinsHeader } from "@/components/coins-header"
 
 export default function MissionsPage() {
   return (
     <div className="min-h-screen bg-background pb-20">
-      <div className="max-w-md mx-auto">
+      <CoinsHeader />
+      <div className="max-w-md mx-auto pt-16">
         <HealthRecommendations />
         <BottomNav />
       </div>

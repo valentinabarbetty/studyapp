@@ -1,15 +1,14 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Calendar, Target, Users, User } from 'lucide-react'
-import Link from 'next/link'
-import { SessionStart } from '@/components/session-start'
-import { BottomNav } from '@/components/bottom-nav'
+import { SessionStart } from "@/components/session-start"
+import { BottomNav } from "@/components/bottom-nav"
+import { CoinsHeader } from "@/components/coins-header"
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background pb-20">
-      <div className="max-w-md mx-auto">
+      <CoinsHeader />
+      <div className="max-w-md mx-auto pt-16">
         <SessionStart />
         <BottomNav />
       </div>

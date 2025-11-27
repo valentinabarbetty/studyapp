@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Clock } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Clock } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export function SessionStart() {
   const [selectedTime, setSelectedTime] = useState(25)
@@ -18,12 +18,8 @@ export function SessionStart() {
   return (
     <div className="p-6 animate-fade-in">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground mb-2">
-          Iniciar Sesión de Estudio
-        </h1>
-        <p className="text-muted-foreground">
-          Elige tu tiempo de concentración
-        </p>
+        <h1 className="text-3xl font-bold text-foreground mb-2">Iniciar Sesión de Estudio</h1>
+        <p className="text-muted-foreground">Elige tu tiempo de concentración</p>
       </div>
 
       <Card className="p-6 mb-6 bg-card border-2 border-primary/20">
@@ -32,15 +28,15 @@ export function SessionStart() {
           <h2 className="text-lg font-semibold">Duración de la sesión</h2>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 mb-6">
+        <div className="flex gap-3 mb-6">
           {times.map((time) => (
             <button
               key={time}
               onClick={() => setSelectedTime(time)}
-              className={`py-4 px-6 rounded-2xl font-semibold text-lg transition-all ${
+              className={`flex-1 py-4 px-4 rounded-2xl font-semibold text-lg transition-all ${
                 selectedTime === time
-                  ? 'bg-primary text-primary-foreground scale-105 shadow-lg'
-                  : 'bg-secondary text-secondary-foreground hover:bg-muted'
+                  ? "bg-primary text-primary-foreground scale-105 shadow-lg"
+                  : "bg-secondary text-secondary-foreground hover:bg-muted"
               }`}
             >
               {time} min
@@ -59,12 +55,8 @@ export function SessionStart() {
       <Card className="p-5 bg-muted/50 border-border">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-muted-foreground mb-1">
-              Próxima Misión
-            </p>
-            <p className="font-semibold text-foreground">
-              Reto Diario: 3 Sesiones
-            </p>
+            <p className="text-sm text-muted-foreground mb-1">Próxima Misión</p>
+            <p className="font-semibold text-foreground">Reto Diario: 3 Sesiones</p>
           </div>
           <div className="text-right">
             <p className="text-2xl font-bold text-accent">+200 XP</p>
