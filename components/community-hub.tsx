@@ -29,7 +29,7 @@ export function CommunityHub() {
       </div>
 
       <Link href="/community/create">
-        <Card className="p-6 mb-8 bg-gradient-to-br from-primary/20 to-accent/10 border-2 border-primary/30 hover:scale-105 transition-transform cursor-pointer">
+        <Card className="p-6 mb-10 bg-gradient-to-br from-primary/20 to-accent/10 border-2 border-primary/30 hover:scale-105 transition-transform cursor-pointer">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
               <Plus className="w-7 h-7 text-primary-foreground" />
@@ -42,12 +42,12 @@ export function CommunityHub() {
         </Card>
       </Link>
 
-      <div className="mb-8">
+      <div className="mb-10">
         <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
           <Users className="w-5 h-5 text-primary" />
           Mis Grupos
         </h2>
-        <div className="space-y-4">
+        <div className="space-y-5">
           {myGroups.map((group) => (
             <Link key={group.id} href={`/community/group/${group.id}`}>
               <Card className="p-6 bg-card border-border hover:border-primary transition-colors cursor-pointer">
