@@ -36,8 +36,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`font-sans antialiased`}>
+      <body className="font-sans antialiased">
+
         {children}
+
+        {/* 📌 CONTENEDOR GLOBAL DE TOASTS (notificaciones a la derecha) */}
+        <div 
+          id="toast-root" 
+          className="fixed top-6 right-6 z-[9999] space-y-3"
+        />
+
         <Analytics />
       </body>
     </html>
