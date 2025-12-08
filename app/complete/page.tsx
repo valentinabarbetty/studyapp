@@ -22,27 +22,9 @@ export default function CompletePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/20 via-accent/10 to-background flex items-center justify-center p-6 relative overflow-hidden">
-      {/* Confetti */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-confetti"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${3 + Math.random() * 2}s`,
-            }}
-          >
-            <div
-              className="w-2 h-2 rounded-full"
-              style={{
-                backgroundColor: ['#A4D69C', '#FFD93D', '#FF6B3D', '#CDEDC6'][Math.floor(Math.random() * 4)],
-              }}
-            />
-          </div>
-        ))}
-      </div>
+
+      {/* 🎉 Animación dinámica según duración */}
+      <CelebrationAnimation duration={sessionDuration} />
 
       <div className={`max-w-md w-full text-center z-10 transition-all duration-500 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="mb-8">
@@ -72,6 +54,79 @@ export default function CompletePage() {
           Continuar
         </Button>
       </div>
+    </div>
+  )
+}
+
+/* ----------------------------------------------------
+🎉 Animación dinámica según duración
+---------------------------------------------------- */
+function CelebrationAnimation({ duration }: { duration: number }) {
+  if (duration < 10) return <SoftConfetti />
+  if (duration < 25) return <MagicBurst />
+  return <FireEnergy />
+}
+
+/* ------------------ CONFETTI SUAVE ------------------ */
+function SoftConfetti() {
+  return (
+    <div className="absolute inset-0 pointer-events-none z-10">
+      {[...Array(40)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute animate-confetti"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 3}s`,
+            animationDuration: `${3 + Math.random() * 2}s`,
+          }}
+        >
+          <div
+            className="w-2 h-2 rounded-full"
+            style={{
+              backgroundColor: ['#A4D69C', '#FFD93D', '#FF6B3D', '#CDEDC6'][Math.floor(Math.random() * 4)],
+            }}
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+/* ------------------ EXPLOSIÓN MÁGICA ------------------ */
+function MagicBurst() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+      {[...Array(12)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-4 h-4 bg-purple-400 rounded-full animate-burst"
+          style={{
+            transform: `rotate(${i * 30}deg) translateY(-60px)`,
+            animationDelay: `${i * 0.1}s`,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+/* ------------------ FUEGO / ENERGÍA ÉPICA ------------------ */
+function FireEnergy() {
+  return (
+    <div className="absolute inset-0 pointer-events-none z-10">
+      {[...Array(20)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute animate-fire"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 1.5}s`,
+          }}
+        >
+          <div className="w-3 h-10 bg-gradient-to-b from-orange-400 to-red-600 rounded-full opacity-70 blur-sm" />
+        </div>
+      ))}
     </div>
   )
 }

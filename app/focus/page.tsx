@@ -10,7 +10,11 @@ import { Switch } from "@/components/ui/switch"
 function FocusContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const duration = Number.parseInt(searchParams.get("duration") || "25")
+
+  // ⬇⬇⬇ CAMBIADO A 2 MINUTOS POR DEFECTO
+  const duration = Number.parseInt(searchParams.get("duration") || "2")
+  // ⬆⬆⬆
+
   const reward = Math.max(50, Math.round(duration * 4))
 
   const [timeLeft, setTimeLeft] = useState(duration * 60)
