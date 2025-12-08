@@ -1,12 +1,19 @@
-'use client'
+"use client"
 
-import { useEffect, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { useRouter } from 'next/navigation'
-import { Sparkles } from 'lucide-react'
+import { useEffect, useMemo, useState } from "react"
+import { Button } from "@/components/ui/button"
+import { useRouter, useSearchParams } from "next/navigation"
+import { Sparkles } from "lucide-react"
 
 export default function CompletePage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const sessionDuration = Number.parseInt(searchParams.get("duration") || "25")
+  const reward = useMemo(
+    () => Number.parseInt(searchParams.get("reward") || "") || Math.max(50, Math.round(sessionDuration * 4)),
+    [searchParams, sessionDuration],
+  )
   const [showContent, setShowContent] = useState(false)
 
   useEffect(() => {
@@ -45,16 +52,15 @@ export default function CompletePage() {
             </div>
           </div>
 
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            ¡Sesión Completada!
-          </h1>
-          
+          <h1 className="text-4xl font-bold text-foreground mb-4">¡Sesión Completada!</h1>
+
           <div className="inline-block px-8 py-4 bg-success text-white rounded-3xl text-3xl font-bold mb-6 animate-pulse-success">
-            +100 XP
+            +{reward} XP
           </div>
 
           <p className="text-lg text-muted-foreground mb-8">
-            ¡Excelente trabajo! Has completado una sesión de estudio
+            ¡Excelente trabajo! Has completado una sesión de estudio de {sessionDuration} minutos y ganaste una
+            recompensa acorde a tu esfuerzo.
           </p>
         </div>
 
