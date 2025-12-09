@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, CheckCircle2, Pause, Play, Sparkles } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 
 const sessions = [
   {
@@ -28,9 +28,10 @@ const sessions = [
   },
 ]
 
-export default function SessionTimerPage({ params }: { params: { id: string } }) {
+export default function SessionTimerPage() {
   const router = useRouter()
-  const sessionId = Number.parseInt(params.id)
+  const params = useParams()
+  const sessionId = Number.parseInt((params?.id as string) || "")
   const session = sessions.find((s) => s.id === sessionId)
 
   const [timeLeft, setTimeLeft] = useState((session?.duration || 45) * 60)
