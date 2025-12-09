@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Pause, Play } from "lucide-react"
+import { ArrowLeft, CheckCircle2, Pause, Play, Sparkles } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 
 const sessions = [
   {
@@ -28,9 +28,10 @@ const sessions = [
   },
 ]
 
-export default function SessionTimerPage({ params }: { params: { id: string } }) {
+export default function SessionTimerPage() {
   const router = useRouter()
-  const sessionId = Number.parseInt(params.id)
+  const params = useParams()
+  const sessionId = Number.parseInt((params?.id as string) || "")
   const session = sessions.find((s) => s.id === sessionId)
 
   const [timeLeft, setTimeLeft] = useState((session?.duration || 45) * 60)
@@ -135,6 +136,36 @@ export default function SessionTimerPage({ params }: { params: { id: string } })
               )}
             </Button>
           </div>
+
+          <Card className="mt-8 bg-muted/40 border-dashed">
+            <div className="flex items-start gap-3">
+              <Sparkles className="w-5 h-5 text-primary mt-1" />
+              <div className="space-y-3 text-left">
+                <div>
+                  <p className="text-sm uppercase tracking-wide text-muted-foreground">Próxima experiencia guiada</p>
+                  <h3 className="text-lg font-semibold text-foreground">Contenido del Reto Diario</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Aquí verás las actividades, checkpoints y recompensas que forman tu sesión. Mientras tanto,
+                    usa este temporizador para mantenerte enfocado.
+                  </p>
+                </div>
+                <ul className="space-y-2 text-sm text-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                    <span>Guía paso a paso con objetivos claros por tema.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                    <span>Retos interactivos y checkpoints que marcan tu progreso.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                    <span>Recompensas dinámicas y recordatorios motivadores.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </Card>
         </Card>
       </div>
     </div>
