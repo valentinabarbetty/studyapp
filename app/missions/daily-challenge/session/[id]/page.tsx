@@ -5,27 +5,12 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, CheckCircle2, Pause, Play, Sparkles } from "lucide-react"
 import Link from "next/link"
-import { useParams, useRouter } from "next/navigation"
+import { useRouter, useParams } from "next/navigation"
 
 const sessions = [
-  {
-    id: 1,
-    name: "Sesión 1 - Cálculo",
-    duration: 45,
-    icon: "📐",
-  },
-  {
-    id: 2,
-    name: "Sesión 2 - Lectura",
-    duration: 30,
-    icon: "📚",
-  },
-  {
-    id: 3,
-    name: "Sesión 3 - Práctica",
-    duration: 60,
-    icon: "✍️",
-  },
+  { id: 1, name: "Sesión 1 - Cálculo", duration: 45, icon: "📐" },
+  { id: 2, name: "Sesión 2 - Lectura", duration: 30, icon: "📚" },
+  { id: 3, name: "Sesión 3 - Práctica", duration: 60, icon: "✍️" },
 ]
 
 export default function SessionTimerPage() {
@@ -40,10 +25,10 @@ export default function SessionTimerPage() {
   useEffect(() => {
     if (!isRunning) return
 
-    const interval = setInterval(() => {
+    const interval = window.setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
-          clearInterval(interval)
+          window.clearInterval(interval)
           router.push("/complete")
           return 0
         }
@@ -51,7 +36,7 @@ export default function SessionTimerPage() {
       })
     }, 1000)
 
-    return () => clearInterval(interval)
+    return () => window.clearInterval(interval)
   }, [isRunning, router])
 
   const minutes = Math.floor(timeLeft / 60)
