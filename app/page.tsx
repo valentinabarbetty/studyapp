@@ -7,10 +7,7 @@ import { BottomNav } from "@/components/bottom-nav"
 
 export default function HomePage() {
   useEffect(() => {
-    const sessions = localStorage.getItem("sessionsCompleted")
-    if (!sessions) {
-      showToast("No has realizado una sesión aún. ¡Haz una para ganar XP!")
-    }
+    showToast("No has realizado alguna sesión aún. ¡Vamos a estudiar! ✨")
   }, [])
 
   return (
