@@ -1,0 +1,143 @@
+"use client"
+
+import { useEffect, useMemo, useState } from "react"
+import { Button } from "@/components/ui/button"
+import { useRouter, useSearchParams } from "next/navigation"
+import { Sparkles } from "lucide-react"
+
+export default function CompleteContent() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  // Obtener duración y recompensa
+  const sessionDuration = Number(searchParams.get("duration") || 25)
+  const reward = useMemo(
+    () => Number(searchParams.get("reward") || "") || Math.max(50, Math.round(sessionDuration * 4)),
+    [searchParams, sessionDuration]
+  )
+
+  const [showContent, setShowContent] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => setShowContent(true), 100)
+
+    // Guardar sesión completada
+    const prev = Number(localStorage.getItem("sessionsCompleted") || 0)
+    localStorage.setItem("sessionsCompleted", String(prev + 1))
+  }, [])
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-primary/20 via-accent/10 to-background flex items-center justify-center p-6 relative overflow-hidden">
+
+      {/* 🎉 Animaciones dinámicas según duración */}
+      <CelebrationAnimation duration={sessionDuration} />
+
+      {/* CONTENIDO */}
+      <div
+        className={`max-w-md w-full text-center z-10 transition-all duration-500 ${
+          showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+      >
+        <div className="mb-8">
+          <div className="relative inline-block mb-6">
+            <div className="w-32 h-32 mx-auto bg-gradient-to-br from-accent to-accent/60 rounded-full flex items-center justify-center animate-pulse-success">
+              <Sparkles className="w-16 h-16 text-accent-foreground" />
+            </div>
+          </div>
+
+          <h1 className="text-4xl font-bold text-foreground mb-4">¡Sesión Completada!</h1>
+
+          <div className="inline-block px-8 py-4 bg-success text-white rounded-3xl text-3xl font-bold mb-6 animate-pulse-success">
+            +{reward} XP
+          </div>
+
+          <p className="text-lg text-muted-foreground mb-8">
+            ¡Excelente trabajo! Has completado una sesión de estudio de {sessionDuration} minutos y ganaste
+            una recompensa acorde a tu esfuerzo.
+          </p>
+        </div>
+
+        <Button
+          onClick={() => router.push("/")}
+          size="lg"
+          className="w-full h-14 text-lg font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl"
+        >
+          Continuar
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+/* ----------------------------------------------------
+🎉 Animación dinámica según duración
+---------------------------------------------------- */
+function CelebrationAnimation({ duration }: { duration: number }) {
+  if (duration < 10) return <SoftConfetti />
+  if (duration < 25) return <MagicBurst />
+  return <FireEnergy />
+}
+
+/* ------------------ CONFETTI SUAVE ------------------ */
+function SoftConfetti() {
+  return (
+    <div className="absolute inset-0 pointer-events-none z-10">
+      {[...Array(40)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute animate-confetti"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 3}s`,
+            animationDuration: `${3 + Math.random() * 2}s`,
+          }}
+        >
+          <div
+            className="w-2 h-2 rounded-full"
+            style={{
+              backgroundColor: ["#A4D69C", "#FFD93D", "#FF6B3D", "#CDEDC6"][Math.floor(Math.random() * 4)],
+            }}
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+/* ------------------ EXPLOSIÓN MÁGICA ------------------ */
+function MagicBurst() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+      {[...Array(12)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-4 h-4 bg-purple-400 rounded-full animate-burst"
+          style={{
+            transform: `rotate(${i * 30}deg) translateY(-60px)`,
+            animationDelay: `${i * 0.1}s`,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+/* ------------------ FUEGO / ENERGÍA ÉPICA ------------------ */
+function FireEnergy() {
+  return (
+    <div className="absolute inset-0 pointer-events-none z-10">
+      {[...Array(20)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute animate-fire"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 1.5}s`,
+          }}
+        >
+          <div className="w-3 h-10 bg-gradient-to-b from-orange-400 to-red-600 rounded-full opacity-70 blur-sm" />
+        </div>
+      ))}
+    </div>
+  )
+}

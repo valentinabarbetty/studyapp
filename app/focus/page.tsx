@@ -11,10 +11,7 @@ function FocusContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
 
-  // ⬇⬇⬇ CAMBIADO A 2 MINUTOS POR DEFECTO
   const duration = Number.parseInt(searchParams.get("duration") || "2")
-  // ⬆⬆⬆
-
   const reward = Math.max(50, Math.round(duration * 4))
 
   const [timeLeft, setTimeLeft] = useState(duration * 60)
@@ -23,6 +20,9 @@ function FocusContent() {
   const [focusMode, setFocusMode] = useState(false)
   const [showFocusModal, setShowFocusModal] = useState(false)
 
+  // NUEVO: bandera segura para redirigir
+  const [shouldRedirect, setShouldRedirect] = useState(false)
+
   useEffect(() => {
     if (!isRunning) return
 
@@ -30,7 +30,7 @@ function FocusContent() {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(interval)
-          router.push(`/complete?duration=${duration}&reward=${reward}`)
+          setShouldRedirect(true) // <-- aquí antes hacías router.push
           return 0
         }
 
@@ -43,7 +43,14 @@ function FocusContent() {
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [isRunning, duration, router, showWarning])
+  }, [isRunning, duration, showWarning])
+
+  // REDIRECCIÓN SEGURA
+  useEffect(() => {
+    if (shouldRedirect) {
+      router.push(`/complete?duration=${duration}&reward=${reward}`)
+    }
+  }, [shouldRedirect, router, duration, reward])
 
   const minutes = Math.floor(timeLeft / 60)
   const seconds = timeLeft % 60
@@ -94,15 +101,7 @@ function FocusContent() {
           <Card className="p-8 bg-card border-2 border-primary/20 mb-6">
             <div className="relative w-64 h-64 mx-auto mb-6">
               <svg className="w-full h-full -rotate-90">
-                <circle
-                  cx="128"
-                  cy="128"
-                  r="120"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="12"
-                  className="text-muted"
-                />
+                <circle cx="128" cy="128" r="120" fill="none" stroke="currentColor" strokeWidth="12" className="text-muted" />
                 <circle
                   cx="128"
                   cy="128"
@@ -127,27 +126,12 @@ function FocusContent() {
             </div>
 
             <div className="flex gap-3">
-              <Button
-                onClick={() => setIsRunning(!isRunning)}
-                variant="outline"
-                size="lg"
-                className="flex-1 rounded-xl"
-              >
-                {isRunning ? (
-                  <>
-                    <Pause className="w-4 h-4 mr-2" />
-                    Pausar
-                  </>
-                ) : (
-                  <>
-                    <Play className="w-4 h-4 mr-2" />
-                    Reanudar
-                  </>
-                )}
+              <Button onClick={() => setIsRunning(!isRunning)} variant="outline" size="lg" className="flex-1 rounded-xl">
+                {isRunning ? <><Pause className="w-4 h-4 mr-2" /> Pausar</> : <><Play className="w-4 h-4 mr-2" /> Reanudar</>}
               </Button>
+
               <Button onClick={handleAbandon} variant="destructive" size="lg" className="rounded-xl">
-                <X className="w-4 h-4 mr-2" />
-                Abandonar
+                <X className="w-4 h-4 mr-2" /> Abandonar
               </Button>
             </div>
           </Card>
@@ -167,15 +151,7 @@ function FocusContent() {
 
 export default function FocusPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen bg-background flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-foreground">Cargando...</div>
-          </div>
-        </div>
-      }
-    >
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Cargando...</div>}>
       <FocusContent />
     </Suspense>
   )
