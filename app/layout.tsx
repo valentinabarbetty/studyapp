@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { ToastProvider } from '@/components/ui/toast-provider'  // ✅ IMPORT CORRECTO
+import { ExperiencePill } from '@/components/experience-pill'
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
 
         {/* Todo tu sitio */}
+        <ExperiencePill />
         {children}
 
         {/* Contenedor GLOBAL de toasts (client-side) */}
